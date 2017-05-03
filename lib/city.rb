@@ -25,4 +25,12 @@ class City
   def ==(another_city)
     self.name.==(another_city.name).&(self.id.==(another_city.id))
   end
+
+  def City.find(id)
+    City.all.each do |city|
+      if city.id == id
+        return city
+      end
+    end
+  end
 end
