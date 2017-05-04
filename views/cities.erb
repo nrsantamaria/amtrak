@@ -1,14 +1,3 @@
-<h1>Add City</h1>
-
-<form action="/cities" method="post">
-  <div class="form-group">
-    <label for="new-city">New City Name</label>
-    <input type="text" name="new-city" id="new-city">
-  </div>
-
-  <button type="submit">Add City</button>
-</form>
-
 <h2>City List</h2>
 <% if @cities.any?() %>
 <p>Click on a city to see its trains:</p>
@@ -20,6 +9,6 @@
 <% else %>
 <p>There are no cities yet!</p>
 <% end %>
-
-<p><a href="/trains">Train List</a></p>
+<p><a href="/admin">Admin Page</a></p>
+<p><a href="/customer">Customer Page</a></p>
 <p><a href="/">Homepage</a></p>

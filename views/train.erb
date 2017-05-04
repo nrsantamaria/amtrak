@@ -1,22 +1,11 @@
 <h1><%= @train.name %></h1>
 
-<form action="/trains" method="post">
-  <label for="city_id">Select a City</label>
-  <select id='city_id' name='city_id' type='text'>
-    <% @cities.each() do |city| %>
-      <option value="<%= city.id()%>"> <%= city.name() %> </option>
-    <% end %>
-  </select>
-  <button type="submit">Add City</button>
-</form>
-
-<p>City List</p>
-
-<% if @cities.any?() %>
-<p>Click on a city to see its trains:</p>
+<% if @train.cities.any?() %>
+  <h3>City List</h3>
+  <p>Here are all the cities this train travels to:</p>
   <ul>
-    <% @cities.each do |city| %>
-    <li><a href="/cities/<%= city.id() %>"><%= city.name() %></a></li>
+    <% @train.cities.each do |city| %>
+      <li><%= city.name() %></a></li>
     <% end %>
   </ul>
 <% else %>

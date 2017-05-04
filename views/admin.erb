@@ -1,17 +1,31 @@
 <h1>Admin Page</h1>
 
-<h2>Train List</h2>
-  <% @trains.each() do |train| %>
-    <li><a href="/trains/<%= train.id()%>"> <%= train.name() %> </a></li>
-  <% end %>
-
 <p><a href="/train_form">Add Train</a></p>
 
-<h2>City List</h2>
-  <% @cities.each() do |city| %>
-    <li><a href="/cities/<%= city.id()%>"> <%= city.name() %> </a></li>
-  <% end %>
-
 <p><a href="/city_form">Add City</a></p>
+
+<h2>Train List</h2>
+<% if @trains.any?() %>
+<p>Click on a train to see what cities it goes to:</p>
+  <ul>
+    <% @trains.each() do |train| %>
+    <li><a href="/trains/<%= train.id()%>"> <%= train.name() %> </a></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>There are no trains yet!</p>
+<% end %>
+
+<h2>City List</h2>
+<% if @cities.any?() %>
+<p>Click on a city to see its trains:</p>
+  <ul>
+    <% @cities.each() do |city| %>
+    <li><a href="/cities/<%= city.id()%>"> <%= city.name() %> </a></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>There are no cities yet!</p>
+<% end %>
 
 <p><a href="/">Homepage</a></p>

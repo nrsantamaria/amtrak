@@ -1,0 +1,15 @@
+<h2>Train List</h2>
+<% if @trains.any?() %>
+<p>Click on a city to see its trains:</p>
+  <ul>
+    <% @trains.each() do |train| %>
+    <li><a href="/trains/<%= train.id()%>"> <%= train.name() %> </a></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>There are no trains yet!</p>
+<% end %>
+
+<p><a href="/admin">Admin Page</a></p>
+<p><a href="/customer">Customer Page</a></p>
+<p><a href="/">Homepage</a></p>
