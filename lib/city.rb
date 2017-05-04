@@ -7,7 +7,7 @@ class City
   end
 
   def City.all
-    result = DB.exec('SELECT * FROM cities')
+    result = DB.exec('SELECT * FROM cities;')
     cities = []
     result.each() do |city|
       name = city.fetch('name')
@@ -27,11 +27,9 @@ class City
   end
 
   def City.find(id)
-    City.all.each do |city|
-      if city.id == id
-        return city
-      end
-    end
+    result = DB.exec("SELECT * FROM cities WHERE id = #{id};")
+    name = result.first().fetch("name")
+    City.new({:name => name, :id => id})
   end
 
   def update(attributes)

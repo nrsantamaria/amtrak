@@ -1,4 +1,14 @@
 <h2>Train List</h2>
+
+<p> Add a train to this page</p>
+
+<form action="/trains" method="post">
+  <label for="new-train">Train name:</label>
+  <input id="new-train" name="new-train" type="text">
+
+  <button type="submit">Add train</button>
+</form>
+
 <% if @trains.any?() %>
 <p>Click on a city to see its trains:</p>
   <ul>

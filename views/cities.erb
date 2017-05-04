@@ -1,4 +1,14 @@
 <h2>City List</h2>
+
+<p> Add a city to this page</p>
+
+<form action="/cities" method="post">
+  <label for="new-city">City name:</label>
+  <input id="new-city" name="new-city" type="text">
+
+  <button type="submit">Add city</button>
+</form>
+
 <% if @cities.any?() %>
 <p>Click on a city to see its trains:</p>
   <ul>

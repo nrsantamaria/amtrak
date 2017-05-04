@@ -7,9 +7,9 @@ class Train
   end
 
   def Train.all
-    result = DB.exec('SELECT * FROM trains')
+    results = DB.exec('SELECT * FROM trains;')
     trains = []
-    result.each() do |train|
+    results.each() do |train|
       name = train.fetch('name')
       id = train.fetch('id').to_i
       trains.push(Train.new({:name => name, :id => id}))
@@ -27,11 +27,9 @@ class Train
   end
 
   def Train.find(id)
-    Train.all.each do |train|
-      if train.id == id
-        return train
-      end
-    end
+    result = DB.exec("SELECT * FROM trains WHERE id = #{id};")
+    name = result.first().fetch('name')
+    Train.new({:name => name, :id => id})
   end
 
   def update(attributes)

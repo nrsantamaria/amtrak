@@ -11,36 +11,24 @@ get('/') do
   erb(:index)
 end
 
+get('/customer') do
+  erb(:customer)
+end
+
 get('/admin') do
   @trains = Train.all()
   @cities = City.all()
   erb(:admin)
 end
 
-get('/customer') do
-  erb(:customer)
-end
-
-get('/train_form') do
-  erb(:train_form)
-end
-
-patch("trains/:id") do
-  train_id = params.fetch("id").to_i
-  @train = Train.find(train_id)
-  city_ids = params.fetch("city_ids")
-  @train.update({:city_ids => city_ids})
-  @cities = City.all()
-  erb(:train)
-end
-
-get('/city_form') do
-  erb(:city_form)
-end
-
 get('/trains') do
   @trains = Train.all()
   erb(:trains)
+end
+
+get('/cities') do
+  @cities = City.all()
+  erb(:cities)
 end
 
 post('/trains') do
@@ -51,17 +39,6 @@ post('/trains') do
   erb(:trains)
 end
 
-get('/trains/:id') do
-  @train = Train.find(params.fetch('id').to_i())
-  @cities = City.all()
-  erb(:train)
-end
-
-get('/cities') do
-  @cities = City.all()
-  erb(:cities)
-end
-
 post('/cities') do
   city_name = params.fetch('new-city')
   city = City.new({:name => city_name})
@@ -70,10 +47,25 @@ post('/cities') do
   erb(:cities)
 end
 
+get('/trains/:id') do
+  @train = Train.find(params.fetch('id').to_i())
+  @cities = City.all()
+  erb(:train)
+end
+
 get('/cities/:id') do
   @city = City.find(params.fetch('id').to_i())
   @trains = Train.all()
   erb(:city)
+end
+
+patch("trains/:id") do
+  train_id = params.fetch("id").to_i
+  @train = Train.find(train_id)
+  city_ids = params.fetch("city_ids")
+  @train.update({:city_ids => city_ids})
+  @cities = City.all()
+  erb(:train)
 end
 
 patch("cities/:id") do
