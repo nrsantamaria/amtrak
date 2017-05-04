@@ -33,12 +33,12 @@ class City
   end
 
   def update(attributes)
-    @name = attributes.fetch(:name, @name)
-    DB.exec("UPDATE cities SET name = '#{@name}' WHERE id = #{self.id()};")
-
-    attributes.fetch(:train_ids, []).each() do |train_id|
-      DB.exec("INSERT INTO stops (city_id, train_id) VALUES (#{self.id}, #{train_id});")
+    stop_id = nil
+    attributes.fetch(:train_ids, []).each() do | train_id|
+      result = DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{self.id}, #{train_id}) RETURNING id;")
+      stop_id = result.first['id'].to_i
     end
+    stop_id
   end
 
   def trains

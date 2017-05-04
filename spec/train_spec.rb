@@ -40,12 +40,6 @@ describe(Train) do
   end
 
   describe("#update") do
-    it("lets you update trains in the database") do
-      new_train = Train.new({:name => 'Cascades'})
-      new_train.save
-      new_train.update({:name => "Acela"})
-      expect(new_train.name()).to(eq("Acela"))
-    end
     it('lets you add a city to a train') do
       new_train = Train.new({:name => 'Cascades'})
       new_train.save

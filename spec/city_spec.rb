@@ -40,12 +40,6 @@ describe(City) do
   end
 
   describe("#update") do
-    it("lets you update cities in the database") do
-      new_city = City.new({:name => 'Portland'})
-      new_city.save
-      new_city.update({:name => "Seattle"})
-      expect(new_city.name()).to(eq("Seattle"))
-    end
     it('lets you add a train to a city') do
       new_city = City.new({:name => 'Portland'})
       new_city.save

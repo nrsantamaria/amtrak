@@ -33,33 +33,31 @@ class Train
   end
 
   def update(attributes)
-    @name = attributes.fetch(:name, @name)
-    DB.exec("UPDATE trains SET name = '#{@name}' WHERE id = #{self.id()};")
-
+    stop_id = nil
     attributes.fetch(:city_ids, []).each() do |city_id|
-      DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{self.id}, #{city_id});")
+      result = DB.exec("INSERT INTO stops (train_id, city_id) VALUES (#{self.id}, #{city_id}) RETURNING id;")
+      stop_id = result.first['id'].to_i
     end
+    stop_id
   end
 
   def cities
-  train_cities = []
-  results = DB.exec("SELECT city_id FROM stops WHERE train_id = #{self.id()};")
-  results.each() do |result|
-    city_id = result.fetch("city_id").to_i()
-    city = DB.exec("SELECT * FROM cities WHERE id = #{city_id};")
-    name = city.first().fetch("name")
-    train_cities.push(Train.new({:name => name, :id => city_id}))
+    train_cities = []
+    results = DB.exec("SELECT city_id FROM stops WHERE train_id = #{self.id()};")
+    results.each() do |result|
+      city_id = result.fetch("city_id").to_i()
+      city = DB.exec("SELECT * FROM cities WHERE id = #{city_id};")
+      name = city.first().fetch("name")
+      train_cities.push(Train.new({:name => name, :id => city_id}))
+    end
+    train_cities
   end
-  train_cities
-end
-
-def delete
-  DB.exec("DELETE FROM stops WHERE train_id = #{self.id()};")
-  DB.exec("DELETE FROM trains WHERE id = #{self.id()};")
-end
 
 
-
+  def delete
+    DB.exec("DELETE FROM stops WHERE train_id = #{self.id()};")
+    DB.exec("DELETE FROM trains WHERE id = #{self.id()};")
+  end
 
 
 end

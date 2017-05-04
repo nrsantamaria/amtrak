@@ -1,29 +1,35 @@
 <h1><%= @city.name %></h1>
 
-<h3>Select all the trains that travel to this city:</h3>
+<h3>Select all the trains leave this city:</h3>
 <% if @trains.any?()%>
-  <form action="/trains/<%= @train.id %>" method="post">
+  <form action="/cities/<%= @city.id %>" method="post">
+    <div class="form-group">
     <input type="hidden" name="_method" value="patch">
-
-    <% @trains.each() do |city|%>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" name="train_ids[]" value="<%= train_id %>"><%= train.name()%>
-        </label>
-      </div>
-    <% end %>
-
-    <button type="submit">Add trains</button>
+      <select id='train_ids[]' name='train_ids[]' type='text' class="form-control">
+        <% @trains.each() do |train|%>
+        <option value="<%= train.id %>" class="form-control"><%= train.name()%></option>
+        <% end %>
+      </select>
+      <input type="date" name="arrival_date" class="form-control">
+      <input type="time" name="arrival_time" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success">Add stop</button>
   </form>
 <% end %>
+<br>
+<form action="/cities/<%= @city.id() %>" method="post">
+  <div class="form-group">
+    <input name="_method" type="hidden" value="delete">
+    <button type="submit" class="btn btn-danger">Delete city</button>
+  </div>
+</form>
 
-
-<% if @city.trains.any?() %>
+<% if @city.trains().any?() %>
   <h3>Train List</h3>
-  <p>Here are all the trains that travel to this city:</p>
+  <p>Here are all the trains that leave this city:</p>
   <ul>
-    <% @city.trains.each do |train| %>
-      <li><%= train.name() %></a></li>
+    <% @city.trains().each do |train| %>
+      <li><%= train.name() %> <%= @stop.date%> <%= @stop.time%></a></li>
     <% end %>
   </ul>
 <% else %>

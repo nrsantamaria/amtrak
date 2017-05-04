@@ -1,0 +1,16 @@
+<h1><%= @city.name %></h1>
+
+<% if @city.trains.any?() %>
+  <h3>Train List</h3>
+  <p>Here are all the trains that travel to this city:</p>
+  <ul>
+    <% @city.trains.each do |train| %>
+      <li><%= train.name() %></a></li>
+    <% end %>
+  </ul>
+<% else %>
+<p>There are no trains yet!</p>
+<% end %>
+
+<p><a href="/customer">Customer Page</a></p>
+<p><a href="/">Homepage</a></p>
